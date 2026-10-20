@@ -1,813 +1,877 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>آموزش جامع طراحی سیستم - Hello Interview System Design in a Hurry</title>
-  <link rel="stylesheet" href="assets/css/vazirmatn.css">
-  <link rel="stylesheet" href="assets/css/persian-style.css">
-  <style>
-    body {
-      background-color: #f8fafc;
-      margin: 0;
-      padding: 0;
-      color: #1e293b;
-    }
-    .header-hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: #ffffff;
-      padding: 60px 20px 40px;
-      text-align: center;
-      border-bottom: 4px solid #0284c7;
-    }
-    .header-hero h1 {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin: 0 0 12px;
-      color: #38bdf8;
-    }
-    .header-hero p {
-      font-size: 1.15rem;
-      max-width: 800px;
-      margin: 0 auto 24px;
-      color: #cbd5e1;
-      line-height: 1.7;
-    }
-    .stats-bar {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 24px;
-    }
-    .stat-badge {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 8px 18px;
-      border-radius: 20px;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #f1f5f9;
-    }
-    .search-container {
-      max-width: 700px;
-      margin: -25px auto 40px;
-      padding: 0 20px;
-    }
-    .search-input {
-      width: 100%;
-      padding: 16px 24px;
-      font-size: 1rem;
-      border-radius: 12px;
-      border: 2px solid #e2e8f0;
-      background: #ffffff;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
-      box-sizing: border-box;
-      outline: none;
-      font-family: inherit;
-      transition: all 0.2s ease;
-    }
-    .search-input:focus {
-      border-color: #0284c7;
-      box-shadow: 0 10px 25px -5px rgba(2,132,199,0.25);
-    }
-    .content-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px 80px;
-    }
-    .category-section {
-      margin-bottom: 50px;
-    }
-    .category-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #0f172a;
-      border-right: 5px solid #0284c7;
-      padding-right: 14px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .category-count {
-      font-size: 0.9rem;
-      font-weight: 500;
-      background: #e0f2fe;
-      color: #0369a1;
-      padding: 4px 12px;
-      border-radius: 12px;
-    }
-    .chapters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 16px;
-    }
-    .chapter-card {
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 18px 20px;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-    }
-    .chapter-card:hover {
-      border-color: #0284c7;
-      box-shadow: 0 8px 20px -4px rgba(2,132,199,0.15);
-      transform: translateY(-2px);
-    }
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-    .chapter-number {
-      background: #f1f5f9;
-      color: #475569;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 4px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-    .chapter-card:hover .chapter-number {
-      background: #0284c7;
-      color: #ffffff;
-    }
-    .chapter-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #0f172a;
-      line-height: 1.5;
-    }
-    .chapter-en {
-      font-size: 0.85rem;
-      color: #64748b;
-      margin-top: 6px;
-      direction: ltr;
-      text-align: right;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آموزش جامع طراحی سیستم - Hello Interview System Design in a Hurry</title>
+    <link rel="stylesheet" href="assets/css/vazirmatn.css">
+    <link rel="stylesheet" href="assets/css/persian-style.css">
+    <style>
+        body {
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            color: #1e293b;
+        }
+
+        .header-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            padding: 60px 20px 40px;
+            text-align: center;
+            border-bottom: 4px solid #0284c7;
+        }
+
+        .header-hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin: 0 0 12px;
+            color: #38bdf8;
+        }
+
+        .header-hero p {
+            font-size: 1.15rem;
+            max-width: 800px;
+            margin: 0 auto 24px;
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .stat-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #f1f5f9;
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: -25px auto 40px;
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px;
+            font-size: 1rem;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            background: #ffffff;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            outline: none;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            border-color: #0284c7;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.25);
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        .category-section {
+            margin-bottom: 50px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            border-right: 5px solid #0284c7;
+            padding-right: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .category-count {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+        }
+
+        .chapter-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .chapter-card:hover {
+            border-color: #0284c7;
+            box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .chapter-number {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+        }
+
+        .chapter-card:hover .chapter-number {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        .chapter-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .chapter-en {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+            direction: ltr;
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
-  <div class="header-hero">
+<div class="header-hero">
     <h1>🚀 آموزش جامع و فشرده طراحی سیستم (System Design in a Hurry)</h1>
-    <p>ترجمه کامل و روان به فارسی با ساختار راست‌چین، فونت Vazirmatn، حفظ اصطلاحات تخصصی برنامه‌نویسی و بهینه‌سازی شده برای مطالعه و میزبانی روی GitHub Pages.</p>
+    <p>ترجمه کامل و روان به فارسی با ساختار راست‌چین، فونت Vazirmatn، حفظ اصطلاحات تخصصی برنامه‌نویسی و بهینه‌سازی شده برای مطالعه و میزبانی روی
+        GitHub Pages.</p>
     <div class="stats-bar">
-      <div class="stat-badge">📚 ۷۰ فصل تخصصی</div>
-      <div class="stat-badge">⚡ بهینه‌شده برای GitHub Pages</div>
-      <div class="stat-badge">🔤 فونت وزیرمتن با اصطلاحات تخصصی</div>
-      <div class="stat-badge">💡 الگوها و Case Studyهای واقعی</div>
+        <div class="stat-badge">📚 ۷۰ فصل تخصصی</div>
+        <div class="stat-badge">⚡ بهینه‌شده برای GitHub Pages</div>
+        <div class="stat-badge">🔤 فونت وزیرمتن با اصطلاحات تخصصی</div>
+        <div class="stat-badge">💡 الگوها و Case Studyهای واقعی</div>
     </div>
-  </div>
+</div>
 
-  <div class="search-container">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 جستجو در فصول (نام فناوری، سیستم، عنوان انگلیسی یا فارسی)..." onkeyup="filterChapters()">
-  </div>
+<div class="search-container">
+    <input type="text" id="searchInput" class="search-input" placeholder="🔍 جستجو در فصول (نام فناوری، سیستم، عنوان انگلیسی یا فارسی)..."
+           onkeyup="filterChapters()">
+</div>
 
-  <div class="content-container">
+<div class="content-container">
 
     <div class="category-section">
-      <div class="category-title">
-        <span>مبانی و چارچوب مصاحبه</span>
-        <span class="category-count">3 فصل</span>
-      </div>
-      <div class="chapters-grid">
+        <div class="category-title">
+            <span>مبانی و چارچوب مصاحبه</span>
+            <span class="category-count">3 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-        <a href="001 System Design in a Hurry.html" class="chapter-card" data-title="system design in a hurry">
-          <div class="card-header">
-            <span class="chapter-number">01</span>
-            <div class="chapter-title">System Design in a Hurry</div>
-          </div>
-          <div class="chapter-en">001 System Design in a Hurry</div>
-        </a>
+            <a href="001 System Design in a Hurry.html" class="chapter-card" data-title="system design in a hurry">
+                <div class="card-header">
+                    <span class="chapter-number">01</span>
+                    <div class="chapter-title">System Design in a Hurry</div>
+                </div>
+                <div class="chapter-en">001 System Design in a Hurry</div>
+            </a>
 
-        <a href="002 How to Prepare for System Design Interviews.html" class="chapter-card" data-title="how to prepare for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">02</span>
-            <div class="chapter-title">How to Prepare for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">002 How to Prepare for System Design Interviews</div>
-        </a>
+            <a href="002 How to Prepare for System Design Interviews.html" class="chapter-card"
+               data-title="how to prepare for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">02</span>
+                    <div class="chapter-title">How to Prepare for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">002 How to Prepare for System Design Interviews</div>
+            </a>
 
-        <a href="003 System Design Delivery Framework.html" class="chapter-card" data-title="system design delivery framework">
-          <div class="card-header">
-            <span class="chapter-number">03</span>
-            <div class="chapter-title">System Design Delivery Framework</div>
-          </div>
-          <div class="chapter-en">003 System Design Delivery Framework</div>
-        </a>
+            <a href="003 System Design Delivery Framework.html" class="chapter-card" data-title="system design delivery framework">
+                <div class="card-header">
+                    <span class="chapter-number">03</span>
+                    <div class="chapter-title">System Design Delivery Framework</div>
+                </div>
+                <div class="chapter-en">003 System Design Delivery Framework</div>
+            </a>
 
-      </div>
-    </div>
-
-    <div class="category-section">
-      <div class="category-title">
-        <span>مفاهیم بنیادین و تئوری</span>
-        <span class="category-count">9 فصل</span>
-      </div>
-      <div class="chapters-grid">
-
-        <a href="004 Core Concepts for System Design Interviews.html" class="chapter-card" data-title="core concepts for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">04</span>
-            <div class="chapter-title">Core Concepts for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">004 Core Concepts for System Design Interviews</div>
-        </a>
-
-        <a href="005 System Design Key Technologies.html" class="chapter-card" data-title="system design key technologies">
-          <div class="card-header">
-            <span class="chapter-number">05</span>
-            <div class="chapter-title">System Design Key Technologies</div>
-          </div>
-          <div class="chapter-en">005 System Design Key Technologies</div>
-        </a>
-
-        <a href="006 System Design Interview Patterns.html" class="chapter-card" data-title="system design interview patterns">
-          <div class="card-header">
-            <span class="chapter-number">06</span>
-            <div class="chapter-title">System Design Interview Patterns</div>
-          </div>
-          <div class="chapter-en">006 System Design Interview Patterns</div>
-        </a>
-
-        <a href="007 Networking Essentials for System Design Interviews.html" class="chapter-card" data-title="networking essentials for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">07</span>
-            <div class="chapter-title">Networking Essentials for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">007 Networking Essentials for System Design Interviews</div>
-        </a>
-
-        <a href="008 API Design for System Design Interviews.html" class="chapter-card" data-title="api design for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">08</span>
-            <div class="chapter-title">API Design for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">008 API Design for System Design Interviews</div>
-        </a>
-
-        <a href="009 CAP Theorem Deep Dive for System Design Interviews.html" class="chapter-card" data-title="cap theorem deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">09</span>
-            <div class="chapter-title">CAP Theorem Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">009 CAP Theorem Deep Dive for System Design Interviews</div>
-        </a>
-
-        <a href="010 Consistent Hashing Deep Dive for System Design Interviews.html" class="chapter-card" data-title="consistent hashing deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">10</span>
-            <div class="chapter-title">Consistent Hashing Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">010 Consistent Hashing Deep Dive for System Design Interviews</div>
-        </a>
-
-        <a href="011 Numbers to Know for System Design Interviews.html" class="chapter-card" data-title="numbers to know for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">11</span>
-            <div class="chapter-title">Numbers to Know for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">011 Numbers to Know for System Design Interviews</div>
-        </a>
-
-        <a href="012 Database Indexing Deep Dive for System Design Interviews.html" class="chapter-card" data-title="database indexing deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">12</span>
-            <div class="chapter-title">Database Indexing Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">012 Database Indexing Deep Dive for System Design Interviews</div>
-        </a>
-
-      </div>
+        </div>
     </div>
 
     <div class="category-section">
-      <div class="category-title">
-        <span>طراحی سیستم‌های واقعی (Case Studies)</span>
-        <span class="category-count">27 فصل</span>
-      </div>
-      <div class="chapters-grid">
+        <div class="category-title">
+            <span>مفاهیم بنیادین و تئوری</span>
+            <span class="category-count">9 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-        <a href="013 Design a URL Shortener Like Bit.ly.html" class="chapter-card" data-title="design a url shortener like bit.ly">
-          <div class="card-header">
-            <span class="chapter-number">13</span>
-            <div class="chapter-title">Design a URL Shortener Like Bit.ly</div>
-          </div>
-          <div class="chapter-en">013 Design a URL Shortener Like Bit.ly</div>
-        </a>
+            <a href="004 Core Concepts for System Design Interviews.html" class="chapter-card"
+               data-title="core concepts for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">04</span>
+                    <div class="chapter-title">Core Concepts for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">004 Core Concepts for System Design Interviews</div>
+            </a>
 
-        <a href="014 Design a File Storage Service Like Dropbox.html" class="chapter-card" data-title="design a file storage service like dropbox">
-          <div class="card-header">
-            <span class="chapter-number">14</span>
-            <div class="chapter-title">Design a File Storage Service Like Dropbox</div>
-          </div>
-          <div class="chapter-en">014 Design a File Storage Service Like Dropbox</div>
-        </a>
+            <a href="005 System Design Key Technologies.html" class="chapter-card" data-title="system design key technologies">
+                <div class="card-header">
+                    <span class="chapter-number">05</span>
+                    <div class="chapter-title">System Design Key Technologies</div>
+                </div>
+                <div class="chapter-en">005 System Design Key Technologies</div>
+            </a>
 
-        <a href="015 Design a Local Delivery Service like Gopuff.html" class="chapter-card" data-title="design a local delivery service like gopuff">
-          <div class="card-header">
-            <span class="chapter-number">15</span>
-            <div class="chapter-title">Design a Local Delivery Service like Gopuff</div>
-          </div>
-          <div class="chapter-en">015 Design a Local Delivery Service like Gopuff</div>
-        </a>
+            <a href="006 System Design Interview Patterns.html" class="chapter-card" data-title="system design interview patterns">
+                <div class="card-header">
+                    <span class="chapter-number">06</span>
+                    <div class="chapter-title">System Design Interview Patterns</div>
+                </div>
+                <div class="chapter-en">006 System Design Interview Patterns</div>
+            </a>
 
-        <a href="016 Design a News Aggregator like Google News.html" class="chapter-card" data-title="design a news aggregator like google news">
-          <div class="card-header">
-            <span class="chapter-number">16</span>
-            <div class="chapter-title">Design a News Aggregator like Google News</div>
-          </div>
-          <div class="chapter-en">016 Design a News Aggregator like Google News</div>
-        </a>
+            <a href="007 Networking Essentials for System Design Interviews.html" class="chapter-card"
+               data-title="networking essentials for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">07</span>
+                    <div class="chapter-title">Networking Essentials for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">007 Networking Essentials for System Design Interviews</div>
+            </a>
 
-        <a href="017 Design a Ticket Booking Site Like Ticketmaster.html" class="chapter-card" data-title="design a ticket booking site like ticketmaster">
-          <div class="card-header">
-            <span class="chapter-number">17</span>
-            <div class="chapter-title">Design a Ticket Booking Site Like Ticketmaster</div>
-          </div>
-          <div class="chapter-en">017 Design a Ticket Booking Site Like Ticketmaster</div>
-        </a>
+            <a href="008 API Design for System Design Interviews.html" class="chapter-card" data-title="api design for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">08</span>
+                    <div class="chapter-title">API Design for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">008 API Design for System Design Interviews</div>
+            </a>
 
-        <a href="018 Design Facebook's News Feed.html" class="chapter-card" data-title="design facebook's news feed">
-          <div class="card-header">
-            <span class="chapter-number">18</span>
-            <div class="chapter-title">Design Facebook's News Feed</div>
-          </div>
-          <div class="chapter-en">018 Design Facebook's News Feed</div>
-        </a>
+            <a href="009 CAP Theorem Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="cap theorem deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">09</span>
+                    <div class="chapter-title">CAP Theorem Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">009 CAP Theorem Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="019 Design a Dating App Like Tinder.html" class="chapter-card" data-title="design a dating app like tinder">
-          <div class="card-header">
-            <span class="chapter-number">19</span>
-            <div class="chapter-title">Design a Dating App Like Tinder</div>
-          </div>
-          <div class="chapter-en">019 Design a Dating App Like Tinder</div>
-        </a>
+            <a href="010 Consistent Hashing Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="consistent hashing deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">10</span>
+                    <div class="chapter-title">Consistent Hashing Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">010 Consistent Hashing Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="020 Design a Coding Platform Like LeetCode.html" class="chapter-card" data-title="design a coding platform like leetcode">
-          <div class="card-header">
-            <span class="chapter-number">20</span>
-            <div class="chapter-title">Design a Coding Platform Like LeetCode</div>
-          </div>
-          <div class="chapter-en">020 Design a Coding Platform Like LeetCode</div>
-        </a>
+            <a href="011 Numbers to Know for System Design Interviews.html" class="chapter-card"
+               data-title="numbers to know for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">11</span>
+                    <div class="chapter-title">Numbers to Know for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">011 Numbers to Know for System Design Interviews</div>
+            </a>
 
-        <a href="021 Design a Messaging App Like WhatsApp.html" class="chapter-card" data-title="design a messaging app like whatsapp">
-          <div class="card-header">
-            <span class="chapter-number">21</span>
-            <div class="chapter-title">Design a Messaging App Like WhatsApp</div>
-          </div>
-          <div class="chapter-en">021 Design a Messaging App Like WhatsApp</div>
-        </a>
+            <a href="012 Database Indexing Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="database indexing deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">12</span>
+                    <div class="chapter-title">Database Indexing Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">012 Database Indexing Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="022 Design a Local Business Review Site Like Yelp.html" class="chapter-card" data-title="design a local business review site like yelp">
-          <div class="card-header">
-            <span class="chapter-number">22</span>
-            <div class="chapter-title">Design a Local Business Review Site Like Yelp</div>
-          </div>
-          <div class="chapter-en">022 Design a Local Business Review Site Like Yelp</div>
-        </a>
-
-        <a href="023 Design a Fitness Tracking App Like Strava.html" class="chapter-card" data-title="design a fitness tracking app like strava">
-          <div class="card-header">
-            <span class="chapter-number">23</span>
-            <div class="chapter-title">Design a Fitness Tracking App Like Strava</div>
-          </div>
-          <div class="chapter-en">023 Design a Fitness Tracking App Like Strava</div>
-        </a>
-
-        <a href="024 Design a Distributed Rate Limiter.html" class="chapter-card" data-title="design a distributed rate limiter">
-          <div class="card-header">
-            <span class="chapter-number">24</span>
-            <div class="chapter-title">Design a Distributed Rate Limiter</div>
-          </div>
-          <div class="chapter-en">024 Design a Distributed Rate Limiter</div>
-        </a>
-
-        <a href="025 Design an Online Auction Platform Like eBay.html" class="chapter-card" data-title="design an online auction platform like ebay">
-          <div class="card-header">
-            <span class="chapter-number">25</span>
-            <div class="chapter-title">Design an Online Auction Platform Like eBay</div>
-          </div>
-          <div class="chapter-en">025 Design an Online Auction Platform Like eBay</div>
-        </a>
-
-        <a href="026 Design Facebook's Live Comments System.html" class="chapter-card" data-title="design facebook's live comments system">
-          <div class="card-header">
-            <span class="chapter-number">26</span>
-            <div class="chapter-title">Design Facebook's Live Comments System</div>
-          </div>
-          <div class="chapter-en">026 Design Facebook's Live Comments System</div>
-        </a>
-
-        <a href="027 Design Facebook's Post Search.html" class="chapter-card" data-title="design facebook's post search">
-          <div class="card-header">
-            <span class="chapter-number">27</span>
-            <div class="chapter-title">Design Facebook's Post Search</div>
-          </div>
-          <div class="chapter-en">027 Design Facebook's Post Search</div>
-        </a>
-
-        <a href="028 Design a Price Tracking Service like CamelCamelCamel.html" class="chapter-card" data-title="design a price tracking service like camelcamelcamel">
-          <div class="card-header">
-            <span class="chapter-number">28</span>
-            <div class="chapter-title">Design a Price Tracking Service like CamelCamelCamel</div>
-          </div>
-          <div class="chapter-en">028 Design a Price Tracking Service like CamelCamelCamel</div>
-        </a>
-
-        <a href="029 Design a Photo Sharing App Like Instagram.html" class="chapter-card" data-title="design a photo sharing app like instagram">
-          <div class="card-header">
-            <span class="chapter-number">29</span>
-            <div class="chapter-title">Design a Photo Sharing App Like Instagram</div>
-          </div>
-          <div class="chapter-en">029 Design a Photo Sharing App Like Instagram</div>
-        </a>
-
-        <a href="030 Design YouTube's Top K Videos Feature.html" class="chapter-card" data-title="design youtube's top k videos feature">
-          <div class="card-header">
-            <span class="chapter-number">30</span>
-            <div class="chapter-title">Design YouTube's Top K Videos Feature</div>
-          </div>
-          <div class="chapter-en">030 Design YouTube's Top K Videos Feature</div>
-        </a>
-
-        <a href="031 Design a Ride-Sharing Service Like Uber.html" class="chapter-card" data-title="design a ride-sharing service like uber">
-          <div class="card-header">
-            <span class="chapter-number">31</span>
-            <div class="chapter-title">Design a Ride-Sharing Service Like Uber</div>
-          </div>
-          <div class="chapter-en">031 Design a Ride-Sharing Service Like Uber</div>
-        </a>
-
-        <a href="032 Design a Stock Trading Platform Like Robinhood.html" class="chapter-card" data-title="design a stock trading platform like robinhood">
-          <div class="card-header">
-            <span class="chapter-number">32</span>
-            <div class="chapter-title">Design a Stock Trading Platform Like Robinhood</div>
-          </div>
-          <div class="chapter-en">032 Design a Stock Trading Platform Like Robinhood</div>
-        </a>
-
-        <a href="033 Design a Collaborative Document Editor Like Google Docs.html" class="chapter-card" data-title="design a collaborative document editor like google docs">
-          <div class="card-header">
-            <span class="chapter-number">33</span>
-            <div class="chapter-title">Design a Collaborative Document Editor Like Google Docs</div>
-          </div>
-          <div class="chapter-en">033 Design a Collaborative Document Editor Like Google Docs</div>
-        </a>
-
-        <a href="034 Design a Distributed Cache Like Redis.html" class="chapter-card" data-title="design a distributed cache like redis">
-          <div class="card-header">
-            <span class="chapter-number">34</span>
-            <div class="chapter-title">Design a Distributed Cache Like Redis</div>
-          </div>
-          <div class="chapter-en">034 Design a Distributed Cache Like Redis</div>
-        </a>
-
-        <a href="035 Design a Video Streaming Platform Like YouTube.html" class="chapter-card" data-title="design a video streaming platform like youtube">
-          <div class="card-header">
-            <span class="chapter-number">35</span>
-            <div class="chapter-title">Design a Video Streaming Platform Like YouTube</div>
-          </div>
-          <div class="chapter-en">035 Design a Video Streaming Platform Like YouTube</div>
-        </a>
-
-        <a href="036 Design a Distributed Job Scheduler Like Airflow.html" class="chapter-card" data-title="design a distributed job scheduler like airflow">
-          <div class="card-header">
-            <span class="chapter-number">36</span>
-            <div class="chapter-title">Design a Distributed Job Scheduler Like Airflow</div>
-          </div>
-          <div class="chapter-en">036 Design a Distributed Job Scheduler Like Airflow</div>
-        </a>
-
-        <a href="037 Design a Web Crawler.html" class="chapter-card" data-title="design a web crawler">
-          <div class="card-header">
-            <span class="chapter-number">37</span>
-            <div class="chapter-title">Design a Web Crawler</div>
-          </div>
-          <div class="chapter-en">037 Design a Web Crawler</div>
-        </a>
-
-        <a href="038 Design an Ad Click Aggregator.html" class="chapter-card" data-title="design an ad click aggregator">
-          <div class="card-header">
-            <span class="chapter-number">38</span>
-            <div class="chapter-title">Design an Ad Click Aggregator</div>
-          </div>
-          <div class="chapter-en">038 Design an Ad Click Aggregator</div>
-        </a>
-
-        <a href="039 Design a Payment System like Stripe.html" class="chapter-card" data-title="design a payment system like stripe">
-          <div class="card-header">
-            <span class="chapter-number">39</span>
-            <div class="chapter-title">Design a Payment System like Stripe</div>
-          </div>
-          <div class="chapter-en">039 Design a Payment System like Stripe</div>
-        </a>
-
-      </div>
+        </div>
     </div>
 
     <div class="category-section">
-      <div class="category-title">
-        <span>الگوهای کلیدی مقیاس‌پذیری</span>
-        <span class="category-count">7 فصل</span>
-      </div>
-      <div class="chapters-grid">
+        <div class="category-title">
+            <span>طراحی سیستم‌های واقعی (Case Studies)</span>
+            <span class="category-count">27 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-        <a href="040 Real-time Updates Pattern for System Design Interviews.html" class="chapter-card" data-title="real-time updates pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">40</span>
-            <div class="chapter-title">Real-time Updates Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">040 Real-time Updates Pattern for System Design Interviews</div>
-        </a>
+            <a href="013 Design a URL Shortener Like Bit.ly.html" class="chapter-card" data-title="design a url shortener like bit.ly">
+                <div class="card-header">
+                    <span class="chapter-number">13</span>
+                    <div class="chapter-title">Design a URL Shortener Like Bit.ly</div>
+                </div>
+                <div class="chapter-en">013 Design a URL Shortener Like Bit.ly</div>
+            </a>
 
-        <a href="041 Dealing with Contention Pattern for System Design Interviews.html" class="chapter-card" data-title="dealing with contention pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">41</span>
-            <div class="chapter-title">Dealing with Contention Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">041 Dealing with Contention Pattern for System Design Interviews</div>
-        </a>
+            <a href="014 Design a File Storage Service Like Dropbox.html" class="chapter-card"
+               data-title="design a file storage service like dropbox">
+                <div class="card-header">
+                    <span class="chapter-number">14</span>
+                    <div class="chapter-title">Design a File Storage Service Like Dropbox</div>
+                </div>
+                <div class="chapter-en">014 Design a File Storage Service Like Dropbox</div>
+            </a>
 
-        <a href="042 Multi-step Processes Pattern for System Design Interviews.html" class="chapter-card" data-title="multi-step processes pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">42</span>
-            <div class="chapter-title">Multi-step Processes Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">042 Multi-step Processes Pattern for System Design Interviews</div>
-        </a>
+            <a href="015 Design a Local Delivery Service like Gopuff.html" class="chapter-card"
+               data-title="design a local delivery service like gopuff">
+                <div class="card-header">
+                    <span class="chapter-number">15</span>
+                    <div class="chapter-title">Design a Local Delivery Service like Gopuff</div>
+                </div>
+                <div class="chapter-en">015 Design a Local Delivery Service like Gopuff</div>
+            </a>
 
-        <a href="043 How to scale reads in your system design interview.html" class="chapter-card" data-title="how to scale reads in your system design interview">
-          <div class="card-header">
-            <span class="chapter-number">43</span>
-            <div class="chapter-title">How to scale reads in your system design interview</div>
-          </div>
-          <div class="chapter-en">043 How to scale reads in your system design interview</div>
-        </a>
+            <a href="016 Design a News Aggregator like Google News.html" class="chapter-card" data-title="design a news aggregator like google news">
+                <div class="card-header">
+                    <span class="chapter-number">16</span>
+                    <div class="chapter-title">Design a News Aggregator like Google News</div>
+                </div>
+                <div class="chapter-en">016 Design a News Aggregator like Google News</div>
+            </a>
 
-        <a href="044 How to scale writes in your system design interview.html" class="chapter-card" data-title="how to scale writes in your system design interview">
-          <div class="card-header">
-            <span class="chapter-number">44</span>
-            <div class="chapter-title">How to scale writes in your system design interview</div>
-          </div>
-          <div class="chapter-en">044 How to scale writes in your system design interview</div>
-        </a>
+            <a href="017 Design a Ticket Booking Site Like Ticketmaster.html" class="chapter-card"
+               data-title="design a ticket booking site like ticketmaster">
+                <div class="card-header">
+                    <span class="chapter-number">17</span>
+                    <div class="chapter-title">Design a Ticket Booking Site Like Ticketmaster</div>
+                </div>
+                <div class="chapter-en">017 Design a Ticket Booking Site Like Ticketmaster</div>
+            </a>
 
-        <a href="045 Handling Large Blobs Pattern for System Design Interviews.html" class="chapter-card" data-title="handling large blobs pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">45</span>
-            <div class="chapter-title">Handling Large Blobs Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">045 Handling Large Blobs Pattern for System Design Interviews</div>
-        </a>
+            <a href="018 Design Facebook's News Feed.html" class="chapter-card" data-title="design facebook's news feed">
+                <div class="card-header">
+                    <span class="chapter-number">18</span>
+                    <div class="chapter-title">Design Facebook's News Feed</div>
+                </div>
+                <div class="chapter-en">018 Design Facebook's News Feed</div>
+            </a>
 
-        <a href="046 Managing Long Running Tasks Pattern for System Design Interviews.html" class="chapter-card" data-title="managing long running tasks pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">46</span>
-            <div class="chapter-title">Managing Long Running Tasks Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">046 Managing Long Running Tasks Pattern for System Design Interviews</div>
-        </a>
+            <a href="019 Design a Dating App Like Tinder.html" class="chapter-card" data-title="design a dating app like tinder">
+                <div class="card-header">
+                    <span class="chapter-number">19</span>
+                    <div class="chapter-title">Design a Dating App Like Tinder</div>
+                </div>
+                <div class="chapter-en">019 Design a Dating App Like Tinder</div>
+            </a>
 
-      </div>
+            <a href="020 Design a Coding Platform Like LeetCode.html" class="chapter-card" data-title="design a coding platform like leetcode">
+                <div class="card-header">
+                    <span class="chapter-number">20</span>
+                    <div class="chapter-title">Design a Coding Platform Like LeetCode</div>
+                </div>
+                <div class="chapter-en">020 Design a Coding Platform Like LeetCode</div>
+            </a>
+
+            <a href="021 Design a Messaging App Like WhatsApp.html" class="chapter-card" data-title="design a messaging app like whatsapp">
+                <div class="card-header">
+                    <span class="chapter-number">21</span>
+                    <div class="chapter-title">Design a Messaging App Like WhatsApp</div>
+                </div>
+                <div class="chapter-en">021 Design a Messaging App Like WhatsApp</div>
+            </a>
+
+            <a href="022 Design a Local Business Review Site Like Yelp.html" class="chapter-card"
+               data-title="design a local business review site like yelp">
+                <div class="card-header">
+                    <span class="chapter-number">22</span>
+                    <div class="chapter-title">Design a Local Business Review Site Like Yelp</div>
+                </div>
+                <div class="chapter-en">022 Design a Local Business Review Site Like Yelp</div>
+            </a>
+
+            <a href="023 Design a Fitness Tracking App Like Strava.html" class="chapter-card" data-title="design a fitness tracking app like strava">
+                <div class="card-header">
+                    <span class="chapter-number">23</span>
+                    <div class="chapter-title">Design a Fitness Tracking App Like Strava</div>
+                </div>
+                <div class="chapter-en">023 Design a Fitness Tracking App Like Strava</div>
+            </a>
+
+            <a href="024 Design a Distributed Rate Limiter.html" class="chapter-card" data-title="design a distributed rate limiter">
+                <div class="card-header">
+                    <span class="chapter-number">24</span>
+                    <div class="chapter-title">Design a Distributed Rate Limiter</div>
+                </div>
+                <div class="chapter-en">024 Design a Distributed Rate Limiter</div>
+            </a>
+
+            <a href="025 Design an Online Auction Platform Like eBay.html" class="chapter-card"
+               data-title="design an online auction platform like ebay">
+                <div class="card-header">
+                    <span class="chapter-number">25</span>
+                    <div class="chapter-title">Design an Online Auction Platform Like eBay</div>
+                </div>
+                <div class="chapter-en">025 Design an Online Auction Platform Like eBay</div>
+            </a>
+
+            <a href="026 Design Facebook's Live Comments System.html" class="chapter-card" data-title="design facebook's live comments system">
+                <div class="card-header">
+                    <span class="chapter-number">26</span>
+                    <div class="chapter-title">Design Facebook's Live Comments System</div>
+                </div>
+                <div class="chapter-en">026 Design Facebook's Live Comments System</div>
+            </a>
+
+            <a href="027 Design Facebook's Post Search.html" class="chapter-card" data-title="design facebook's post search">
+                <div class="card-header">
+                    <span class="chapter-number">27</span>
+                    <div class="chapter-title">Design Facebook's Post Search</div>
+                </div>
+                <div class="chapter-en">027 Design Facebook's Post Search</div>
+            </a>
+
+            <a href="028 Design a Price Tracking Service like CamelCamelCamel.html" class="chapter-card"
+               data-title="design a price tracking service like camelcamelcamel">
+                <div class="card-header">
+                    <span class="chapter-number">28</span>
+                    <div class="chapter-title">Design a Price Tracking Service like CamelCamelCamel</div>
+                </div>
+                <div class="chapter-en">028 Design a Price Tracking Service like CamelCamelCamel</div>
+            </a>
+
+            <a href="029 Design a Photo Sharing App Like Instagram.html" class="chapter-card" data-title="design a photo sharing app like instagram">
+                <div class="card-header">
+                    <span class="chapter-number">29</span>
+                    <div class="chapter-title">Design a Photo Sharing App Like Instagram</div>
+                </div>
+                <div class="chapter-en">029 Design a Photo Sharing App Like Instagram</div>
+            </a>
+
+            <a href="030 Design YouTube's Top K Videos Feature.html" class="chapter-card" data-title="design youtube's top k videos feature">
+                <div class="card-header">
+                    <span class="chapter-number">30</span>
+                    <div class="chapter-title">Design YouTube's Top K Videos Feature</div>
+                </div>
+                <div class="chapter-en">030 Design YouTube's Top K Videos Feature</div>
+            </a>
+
+            <a href="031 Design a Ride-Sharing Service Like Uber.html" class="chapter-card" data-title="design a ride-sharing service like uber">
+                <div class="card-header">
+                    <span class="chapter-number">31</span>
+                    <div class="chapter-title">Design a Ride-Sharing Service Like Uber</div>
+                </div>
+                <div class="chapter-en">031 Design a Ride-Sharing Service Like Uber</div>
+            </a>
+
+            <a href="032 Design a Stock Trading Platform Like Robinhood.html" class="chapter-card"
+               data-title="design a stock trading platform like robinhood">
+                <div class="card-header">
+                    <span class="chapter-number">32</span>
+                    <div class="chapter-title">Design a Stock Trading Platform Like Robinhood</div>
+                </div>
+                <div class="chapter-en">032 Design a Stock Trading Platform Like Robinhood</div>
+            </a>
+
+            <a href="033 Design a Collaborative Document Editor Like Google Docs.html" class="chapter-card"
+               data-title="design a collaborative document editor like google docs">
+                <div class="card-header">
+                    <span class="chapter-number">33</span>
+                    <div class="chapter-title">Design a Collaborative Document Editor Like Google Docs</div>
+                </div>
+                <div class="chapter-en">033 Design a Collaborative Document Editor Like Google Docs</div>
+            </a>
+
+            <a href="034 Design a Distributed Cache Like Redis.html" class="chapter-card" data-title="design a distributed cache like redis">
+                <div class="card-header">
+                    <span class="chapter-number">34</span>
+                    <div class="chapter-title">Design a Distributed Cache Like Redis</div>
+                </div>
+                <div class="chapter-en">034 Design a Distributed Cache Like Redis</div>
+            </a>
+
+            <a href="035 Design a Video Streaming Platform Like YouTube.html" class="chapter-card"
+               data-title="design a video streaming platform like youtube">
+                <div class="card-header">
+                    <span class="chapter-number">35</span>
+                    <div class="chapter-title">Design a Video Streaming Platform Like YouTube</div>
+                </div>
+                <div class="chapter-en">035 Design a Video Streaming Platform Like YouTube</div>
+            </a>
+
+            <a href="036 Design a Distributed Job Scheduler Like Airflow.html" class="chapter-card"
+               data-title="design a distributed job scheduler like airflow">
+                <div class="card-header">
+                    <span class="chapter-number">36</span>
+                    <div class="chapter-title">Design a Distributed Job Scheduler Like Airflow</div>
+                </div>
+                <div class="chapter-en">036 Design a Distributed Job Scheduler Like Airflow</div>
+            </a>
+
+            <a href="037 Design a Web Crawler.html" class="chapter-card" data-title="design a web crawler">
+                <div class="card-header">
+                    <span class="chapter-number">37</span>
+                    <div class="chapter-title">Design a Web Crawler</div>
+                </div>
+                <div class="chapter-en">037 Design a Web Crawler</div>
+            </a>
+
+            <a href="038 Design an Ad Click Aggregator.html" class="chapter-card" data-title="design an ad click aggregator">
+                <div class="card-header">
+                    <span class="chapter-number">38</span>
+                    <div class="chapter-title">Design an Ad Click Aggregator</div>
+                </div>
+                <div class="chapter-en">038 Design an Ad Click Aggregator</div>
+            </a>
+
+            <a href="039 Design a Payment System like Stripe.html" class="chapter-card" data-title="design a payment system like stripe">
+                <div class="card-header">
+                    <span class="chapter-number">39</span>
+                    <div class="chapter-title">Design a Payment System like Stripe</div>
+                </div>
+                <div class="chapter-en">039 Design a Payment System like Stripe</div>
+            </a>
+
+        </div>
     </div>
 
     <div class="category-section">
-      <div class="category-title">
-        <span>بررسی عمیق فناوری‌ها و پایگاه‌های داده</span>
-        <span class="category-count">10 فصل</span>
-      </div>
-      <div class="chapters-grid">
+        <div class="category-title">
+            <span>الگوهای کلیدی مقیاس‌پذیری</span>
+            <span class="category-count">7 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-        <a href="047 Redis Deep Dive for System Design Interviews.html" class="chapter-card" data-title="redis deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">47</span>
-            <div class="chapter-title">Redis Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">047 Redis Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="040 Real-time Updates Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="real-time updates pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">40</span>
+                    <div class="chapter-title">Real-time Updates Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">040 Real-time Updates Pattern for System Design Interviews</div>
+            </a>
 
-        <a href="048 Elasticsearch Deep Dive for System Design Interviews.html" class="chapter-card" data-title="elasticsearch deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">48</span>
-            <div class="chapter-title">Elasticsearch Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">048 Elasticsearch Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="041 Dealing with Contention Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="dealing with contention pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">41</span>
+                    <div class="chapter-title">Dealing with Contention Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">041 Dealing with Contention Pattern for System Design Interviews</div>
+            </a>
 
-        <a href="049 Kafka Deep Dive for System Design Interviews.html" class="chapter-card" data-title="kafka deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">49</span>
-            <div class="chapter-title">Kafka Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">049 Kafka Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="042 Multi-step Processes Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="multi-step processes pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">42</span>
+                    <div class="chapter-title">Multi-step Processes Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">042 Multi-step Processes Pattern for System Design Interviews</div>
+            </a>
 
-        <a href="050 API Gateway Deep Dive for System Design Interviews.html" class="chapter-card" data-title="api gateway deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">50</span>
-            <div class="chapter-title">API Gateway Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">050 API Gateway Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="043 How to scale reads in your system design interview.html" class="chapter-card"
+               data-title="how to scale reads in your system design interview">
+                <div class="card-header">
+                    <span class="chapter-number">43</span>
+                    <div class="chapter-title">How to scale reads in your system design interview</div>
+                </div>
+                <div class="chapter-en">043 How to scale reads in your system design interview</div>
+            </a>
 
-        <a href="051 Cassandra Deep Dive for System Design Interviews.html" class="chapter-card" data-title="cassandra deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">51</span>
-            <div class="chapter-title">Cassandra Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">051 Cassandra Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="044 How to scale writes in your system design interview.html" class="chapter-card"
+               data-title="how to scale writes in your system design interview">
+                <div class="card-header">
+                    <span class="chapter-number">44</span>
+                    <div class="chapter-title">How to scale writes in your system design interview</div>
+                </div>
+                <div class="chapter-en">044 How to scale writes in your system design interview</div>
+            </a>
 
-        <a href="052 DynamoDB Deep Dive for System Design Interviews.html" class="chapter-card" data-title="dynamodb deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">52</span>
-            <div class="chapter-title">DynamoDB Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">052 DynamoDB Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="045 Handling Large Blobs Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="handling large blobs pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">45</span>
+                    <div class="chapter-title">Handling Large Blobs Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">045 Handling Large Blobs Pattern for System Design Interviews</div>
+            </a>
 
-        <a href="053 PostgreSQL Deep Dive for System Design Interviews.html" class="chapter-card" data-title="postgresql deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">53</span>
-            <div class="chapter-title">PostgreSQL Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">053 PostgreSQL Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="046 Managing Long Running Tasks Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="managing long running tasks pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">46</span>
+                    <div class="chapter-title">Managing Long Running Tasks Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">046 Managing Long Running Tasks Pattern for System Design Interviews</div>
+            </a>
 
-        <a href="054 Flink Deep Dive for System Design Interviews.html" class="chapter-card" data-title="flink deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">54</span>
-            <div class="chapter-title">Flink Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">054 Flink Deep Dive for System Design Interviews</div>
-        </a>
-
-        <a href="055 ZooKeeper Deep Dive for System Design Interviews.html" class="chapter-card" data-title="zookeeper deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">55</span>
-            <div class="chapter-title">ZooKeeper Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">055 ZooKeeper Deep Dive for System Design Interviews</div>
-        </a>
-
-        <a href="056 Data Structures for Big Data in System Design Interviews.html" class="chapter-card" data-title="data structures for big data in system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">56</span>
-            <div class="chapter-title">Data Structures for Big Data in System Design Interviews</div>
-          </div>
-          <div class="chapter-en">056 Data Structures for Big Data in System Design Interviews</div>
-        </a>
-
-      </div>
+        </div>
     </div>
 
     <div class="category-section">
-      <div class="category-title">
-        <span>به‌روزرسانی‌های جدید (2026 Updates)</span>
-        <span class="category-count">14 فصل</span>
-      </div>
-      <div class="chapters-grid">
+        <div class="category-title">
+            <span>بررسی عمیق فناوری‌ها و پایگاه‌های داده</span>
+            <span class="category-count">10 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-        <a href="057 Design a Metrics Monitoring Platform like Datadog.html" class="chapter-card" data-title="design a metrics monitoring platform like datadog">
-          <div class="card-header">
-            <span class="chapter-number">57</span>
-            <div class="chapter-title">Design a Metrics Monitoring Platform like Datadog</div>
-          </div>
-          <div class="chapter-en">057 Design a Metrics Monitoring Platform like Datadog</div>
-        </a>
+            <a href="047 Redis Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="redis deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">47</span>
+                    <div class="chapter-title">Redis Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">047 Redis Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="058 Caching for System Design Interviews.html" class="chapter-card" data-title="caching for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">58</span>
-            <div class="chapter-title">Caching for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">058 Caching for System Design Interviews</div>
-        </a>
+            <a href="048 Elasticsearch Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="elasticsearch deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">48</span>
+                    <div class="chapter-title">Elasticsearch Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">048 Elasticsearch Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="059 Data Modeling for System Design Interviews.html" class="chapter-card" data-title="data modeling for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">59</span>
-            <div class="chapter-title">Data Modeling for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">059 Data Modeling for System Design Interviews</div>
-        </a>
+            <a href="049 Kafka Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="kafka deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">49</span>
+                    <div class="chapter-title">Kafka Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">049 Kafka Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="060 Sharding in System Design Interviews.html" class="chapter-card" data-title="sharding in system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">60</span>
-            <div class="chapter-title">Sharding in System Design Interviews</div>
-          </div>
-          <div class="chapter-en">060 Sharding in System Design Interviews</div>
-        </a>
+            <a href="050 API Gateway Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="api gateway deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">50</span>
+                    <div class="chapter-title">API Gateway Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">050 API Gateway Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="061 Time Series Databases for System Design Interviews.html" class="chapter-card" data-title="time series databases for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">61</span>
-            <div class="chapter-title">Time Series Databases for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">061 Time Series Databases for System Design Interviews</div>
-        </a>
+            <a href="051 Cassandra Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="cassandra deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">51</span>
+                    <div class="chapter-title">Cassandra Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">051 Cassandra Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="062 Vector Databases Deep Dive for System Design Interviews.html" class="chapter-card" data-title="vector databases deep dive for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">62</span>
-            <div class="chapter-title">Vector Databases Deep Dive for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">062 Vector Databases Deep Dive for System Design Interviews</div>
-        </a>
+            <a href="052 DynamoDB Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="dynamodb deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">52</span>
+                    <div class="chapter-title">DynamoDB Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">052 DynamoDB Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="063 Change Data Capture in System Design Interviews.html" class="chapter-card" data-title="change data capture in system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">63</span>
-            <div class="chapter-title">Change Data Capture in System Design Interviews</div>
-          </div>
-          <div class="chapter-en">063 Change Data Capture in System Design Interviews</div>
-        </a>
+            <a href="053 PostgreSQL Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="postgresql deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">53</span>
+                    <div class="chapter-title">PostgreSQL Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">053 PostgreSQL Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="064 Dealing with Contention Pattern for System Design Interviews.html" class="chapter-card" data-title="dealing with contention pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">64</span>
-            <div class="chapter-title">Dealing with Contention Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">064 Dealing with Contention Pattern for System Design Interviews</div>
-        </a>
+            <a href="054 Flink Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="flink deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">54</span>
+                    <div class="chapter-title">Flink Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">054 Flink Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="065 Design ChatGPT.html" class="chapter-card" data-title="design chatgpt">
-          <div class="card-header">
-            <span class="chapter-number">65</span>
-            <div class="chapter-title">Design ChatGPT</div>
-          </div>
-          <div class="chapter-en">065 Design ChatGPT</div>
-        </a>
+            <a href="055 ZooKeeper Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="zookeeper deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">55</span>
+                    <div class="chapter-title">ZooKeeper Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">055 ZooKeeper Deep Dive for System Design Interviews</div>
+            </a>
 
-        <a href="066 Design a Flash Sale System.html" class="chapter-card" data-title="design a flash sale system">
-          <div class="card-header">
-            <span class="chapter-number">66</span>
-            <div class="chapter-title">Design a Flash Sale System</div>
-          </div>
-          <div class="chapter-en">066 Design a Flash Sale System</div>
-        </a>
+            <a href="056 Data Structures for Big Data in System Design Interviews.html" class="chapter-card"
+               data-title="data structures for big data in system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">56</span>
+                    <div class="chapter-title">Data Structures for Big Data in System Design Interviews</div>
+                </div>
+                <div class="chapter-en">056 Data Structures for Big Data in System Design Interviews</div>
+            </a>
 
-        <a href="067 Design a Notification System.html" class="chapter-card" data-title="design a notification system">
-          <div class="card-header">
-            <span class="chapter-number">67</span>
-            <div class="chapter-title">Design a Notification System</div>
-          </div>
-          <div class="chapter-en">067 Design a Notification System</div>
-        </a>
-
-        <a href="068 Design an Online Chess Platform.html" class="chapter-card" data-title="design an online chess platform">
-          <div class="card-header">
-            <span class="chapter-number">68</span>
-            <div class="chapter-title">Design an Online Chess Platform</div>
-          </div>
-          <div class="chapter-en">068 Design an Online Chess Platform</div>
-        </a>
-
-        <a href="069 Multi-step Processes Pattern for System Design Interviews.html" class="chapter-card" data-title="multi-step processes pattern for system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">69</span>
-            <div class="chapter-title">Multi-step Processes Pattern for System Design Interviews</div>
-          </div>
-          <div class="chapter-en">069 Multi-step Processes Pattern for System Design Interviews</div>
-        </a>
-
-        <a href="070 Proximity Search in System Design Interviews.html" class="chapter-card" data-title="proximity search in system design interviews">
-          <div class="card-header">
-            <span class="chapter-number">70</span>
-            <div class="chapter-title">Proximity Search in System Design Interviews</div>
-          </div>
-          <div class="chapter-en">070 Proximity Search in System Design Interviews</div>
-        </a>
-
-      </div>
+        </div>
     </div>
 
-  </div>
+    <div class="category-section">
+        <div class="category-title">
+            <span>به‌روزرسانی‌های جدید (2026 Updates)</span>
+            <span class="category-count">14 فصل</span>
+        </div>
+        <div class="chapters-grid">
 
-  <script>
+            <a href="057 Design a Metrics Monitoring Platform like Datadog.html" class="chapter-card"
+               data-title="design a metrics monitoring platform like datadog">
+                <div class="card-header">
+                    <span class="chapter-number">57</span>
+                    <div class="chapter-title">Design a Metrics Monitoring Platform like Datadog</div>
+                </div>
+                <div class="chapter-en">057 Design a Metrics Monitoring Platform like Datadog</div>
+            </a>
+
+            <a href="058 Caching for System Design Interviews.html" class="chapter-card" data-title="caching for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">58</span>
+                    <div class="chapter-title">Caching for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">058 Caching for System Design Interviews</div>
+            </a>
+
+            <a href="059 Data Modeling for System Design Interviews.html" class="chapter-card"
+               data-title="data modeling for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">59</span>
+                    <div class="chapter-title">Data Modeling for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">059 Data Modeling for System Design Interviews</div>
+            </a>
+
+            <a href="060 Sharding in System Design Interviews.html" class="chapter-card" data-title="sharding in system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">60</span>
+                    <div class="chapter-title">Sharding in System Design Interviews</div>
+                </div>
+                <div class="chapter-en">060 Sharding in System Design Interviews</div>
+            </a>
+
+            <a href="061 Time Series Databases for System Design Interviews.html" class="chapter-card"
+               data-title="time series databases for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">61</span>
+                    <div class="chapter-title">Time Series Databases for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">061 Time Series Databases for System Design Interviews</div>
+            </a>
+
+            <a href="062 Vector Databases Deep Dive for System Design Interviews.html" class="chapter-card"
+               data-title="vector databases deep dive for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">62</span>
+                    <div class="chapter-title">Vector Databases Deep Dive for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">062 Vector Databases Deep Dive for System Design Interviews</div>
+            </a>
+
+            <a href="063 Change Data Capture in System Design Interviews.html" class="chapter-card"
+               data-title="change data capture in system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">63</span>
+                    <div class="chapter-title">Change Data Capture in System Design Interviews</div>
+                </div>
+                <div class="chapter-en">063 Change Data Capture in System Design Interviews</div>
+            </a>
+
+            <a href="064 Dealing with Contention Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="dealing with contention pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">64</span>
+                    <div class="chapter-title">Dealing with Contention Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">064 Dealing with Contention Pattern for System Design Interviews</div>
+            </a>
+
+            <a href="065 Design ChatGPT.html" class="chapter-card" data-title="design chatgpt">
+                <div class="card-header">
+                    <span class="chapter-number">65</span>
+                    <div class="chapter-title">Design ChatGPT</div>
+                </div>
+                <div class="chapter-en">065 Design ChatGPT</div>
+            </a>
+
+            <a href="066 Design a Flash Sale System.html" class="chapter-card" data-title="design a flash sale system">
+                <div class="card-header">
+                    <span class="chapter-number">66</span>
+                    <div class="chapter-title">Design a Flash Sale System</div>
+                </div>
+                <div class="chapter-en">066 Design a Flash Sale System</div>
+            </a>
+
+            <a href="067 Design a Notification System.html" class="chapter-card" data-title="design a notification system">
+                <div class="card-header">
+                    <span class="chapter-number">67</span>
+                    <div class="chapter-title">Design a Notification System</div>
+                </div>
+                <div class="chapter-en">067 Design a Notification System</div>
+            </a>
+
+            <a href="068 Design an Online Chess Platform.html" class="chapter-card" data-title="design an online chess platform">
+                <div class="card-header">
+                    <span class="chapter-number">68</span>
+                    <div class="chapter-title">Design an Online Chess Platform</div>
+                </div>
+                <div class="chapter-en">068 Design an Online Chess Platform</div>
+            </a>
+
+            <a href="069 Multi-step Processes Pattern for System Design Interviews.html" class="chapter-card"
+               data-title="multi-step processes pattern for system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">69</span>
+                    <div class="chapter-title">Multi-step Processes Pattern for System Design Interviews</div>
+                </div>
+                <div class="chapter-en">069 Multi-step Processes Pattern for System Design Interviews</div>
+            </a>
+
+            <a href="070 Proximity Search in System Design Interviews.html" class="chapter-card"
+               data-title="proximity search in system design interviews">
+                <div class="card-header">
+                    <span class="chapter-number">70</span>
+                    <div class="chapter-title">Proximity Search in System Design Interviews</div>
+                </div>
+                <div class="chapter-en">070 Proximity Search in System Design Interviews</div>
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
     function filterChapters() {
-      const q = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.chapter-card');
-      cards.forEach(card => {
-        const text = (card.getAttribute('data-title') + ' ' + card.innerText).toLowerCase();
-        if (text.includes(q)) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+        const q = document.getElementById('searchInput').value.toLowerCase();
+        const cards = document.querySelectorAll('.chapter-card');
+        cards.forEach(card => {
+            const text = (card.getAttribute('data-title') + ' ' + card.innerText).toLowerCase();
+            if (text.includes(q)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
     }
-  </script>
+</script>
 </body>
 </html>
