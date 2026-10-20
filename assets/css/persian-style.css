@@ -173,11 +173,14 @@ th {
 ol,
 ul,
 li,
+tr,
+th,
+td,
 ol li,
 ul li,
 ol > li,
 ul > li,
 .MuiBox-root {
   direction: rtl;
-  text-align: right;
+  text-align: right !important;
 }
